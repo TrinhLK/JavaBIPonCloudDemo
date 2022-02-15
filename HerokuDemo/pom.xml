@@ -155,31 +155,6 @@
 			<systemPath>${basedir}/libs/JavaBIP-Framework.jar</systemPath>
 		</dependency>
 		
-		
-
-		<!-- <dependency> <groupId>org.scala-lang</groupId> <artifactId>scala-library</artifactId> 
-			<version>a.b</version> <scope>system</scope> <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/scala-library-2.11.0.jar</systemPath> 
-			</dependency> -->
-
-		<!-- <dependency> <groupId>com.typesafe.akka</groupId> <artifactId>akka-actor_${scala.binary.version}</artifactId> 
-			<version>${akka.version}</version> </dependency> -->
-
-		<!-- <dependency> <groupId>com.typesafe.akka</groupId> <artifactId>akka-actor_2.11-2.3.9</artifactId> 
-			<version>2.11-2.3.9</version> <scope>system</scope> <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/akka-actor_2.11-2.3.9.jar</systemPath> 
-			</dependency> -->
-
-		<!-- <dependency> <groupId>com.typesafe.akka</groupId> <artifactId>akka-osgi_2.11-2.3.9</artifactId> 
-			<version>2.11-2.3.9</version> <scope>system</scope> <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/akka-osgi_2.11-2.3.9.jar</systemPath> 
-			</dependency> -->
-
-		<!-- <dependency> <groupId>org.scala-lang</groupId> <artifactId>scala-library</artifactId> 
-			<version>scala-library</version> <scope>system</scope> <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/scala-library-2.3.1.jar</systemPath> 
-			</dependency> -->
-
-
-
-
-
 	</dependencies>
 
 	<!-- repositories> <repository> <id>in-project</id> <name>In Project Repository</name> 
