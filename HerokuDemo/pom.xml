@@ -146,14 +146,69 @@
 			<version>1.2.17</version>
 		</dependency>
 
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.2</version>
+		</dependency>
 
 		<dependency>
+			<groupId>org.javabip</groupId>
+			<artifactId>javabip-core</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/JavaBIP-Framework.jar</systemPath>
+		</dependency>
+		
+		<!-- <dependency>
 			<groupId>my.group</groupId>
-			<artifactId>org.javabip.core</artifactId>
+			<artifactId>org.javabip.api</artifactId>
 			<version>a.b</version>
 			<scope>system</scope>
-			<systemPath>${basedir}/libs/JavaBIP-Framework.jar</systemPath>
+			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/org.javabip.api-0.1.0-SNAPSHOT.jar</systemPath>
 		</dependency>
+		<dependency>
+			<groupId>my.group</groupId>
+			<artifactId>org.javabip.engine.api</artifactId>
+			<version>a.b</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/org.javabip.engine.api-0.1.0-SNAPSHOT.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>my.group</groupId>
+			<artifactId>org.javabip.engine.coordinator</artifactId>
+			<version>a.b</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/org.javabip.engine.coordinator-0.1.0-SNAPSHOT.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>my.group</groupId>
+			<artifactId>org.javabip.engine.factory</artifactId>
+			<version>a.b</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/org.javabip.engine.factory-0.1.0-SNAPSHOT.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>my.group</groupId>
+			<artifactId>org.javabip.executor</artifactId>
+			<version>a.b</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/org.javabip.executor-0.1.0-SNAPSHOT.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>my.group</groupId>
+			<artifactId>org.javabip.glue</artifactId>
+			<version>a.b</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/org.javabip.glue-0.1.0-SNAPSHOT.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>my.group</groupId>
+			<artifactId>org.javabip.spec.examples</artifactId>
+			<version>a.b</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/org.javabip.spec.examples-0.1.0-SNAPSHOT.jar</systemPath>
+		</dependency> -->
 		
 	</dependencies>
 

@@ -586,27 +586,7 @@ public class MonitorConnector_4 extends HttpServlet
 	public void addDatabase () throws Exception {
 		
 		System.out.println("[Monitor_4] add Database to server (....)");
-//		String content = requestJson(SwitchConnector.currentServer);
-		JSONObject jsonObj = new JSONObject(currentReq);
-		String server = jsonObj.optString("server");
-		String baseUrl = server.substring(0, server.lastIndexOf("/")) + "/BIPDeployerOCCI" + "?req=add&addon=heroku-postgresql";
-		
-	    System.out.println("[Monitor_4-addDB] Check URL: " + baseUrl);
-	    URL url;
-		try {
-			url = new URL(baseUrl);
-			System.out.println("[Monitor_4] Check URL: " + baseUrl);
-			URLConnection urlconnect = url.openConnection();
-			InputStream stream = urlconnect.getInputStream();
-			if (request == null) {
-				System.out.println("Request NULL");
-			}
-			request.setAttribute("noti", "Heroku Postgres Database has been created and is available");
-			hasDatabases = true;
-//			request.setAttribute("counter", 0);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		hasDatabases = true;
 	    
 	}
 //	
@@ -657,15 +637,9 @@ public class MonitorConnector_4 extends HttpServlet
 		System.out.println("[Monitor_4] Reset the Monitor (SwitchReady --> MonitorInit)");
 	}
 	
-//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		
-//		List<String> parameterNames = new ArrayList<String>(request.getParameterMap().keySet());
-//
-//		if (!parameterNames.isEmpty()) {
-//			String firstParam = parameterNames.get(0);
-//			String firstValue = request.getParameter(firstParam);
-//		} else {
-//			
-//		}
-//	}
+	@Data(name = "currentRequest", accessTypePort = AccessType.any)
+	public String getCurrentRequest() {
+		return currentReq;
+	}
+	
 }	

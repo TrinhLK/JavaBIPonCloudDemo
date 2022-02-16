@@ -17,27 +17,31 @@ import org.javabip.glue.GlueBuilder;
 
 public class GlueBuilder_Specification extends GlueBuilder
 {
-//	//Monitor_4
-//	@Override
-//	public void configure() {
-//		//(Monitor.switchConfirm)-(Switch.switchConfirm)
-//		//ALL Synchron: root.null
-//		port(SwitchConnector.class, "switchServer").requires(MonitorConnector_4.class, "switchServer");
-//		port(MonitorConnector_4.class, "switchServer").requires(SwitchConnector.class, "switchServer");
-//
-//		port(MonitorConnector_4.class, "receiveSwitchConfirm").requires(SwitchConnector.class, "switchConfirm");
-//		port(SwitchConnector.class, "switchConfirm").requires(MonitorConnector_4.class, "receiveSwitchConfirm");
-//		
-//		port(SwitchConnector.class, "switchServer").accepts(MonitorConnector_4.class, "switchServer");
-//		port(MonitorConnector_4.class, "switchServer").accepts(SwitchConnector.class, "switchServer");
-//
-//		port(MonitorConnector_4.class, "receiveSwitchConfirm").accepts(SwitchConnector.class, "switchConfirm");
-//		port(SwitchConnector.class, "switchConfirm").accepts(MonitorConnector_4.class, "receiveSwitchConfirm");
-//		
-//		// Start of user code Developer policies
-//		// TODO Declare fixed policies
-//		// End of user code
-//	}
+	//Monitor_4
+	@Override
+	public void configure() {
+		//(Monitor.switchConfirm)-(Switch.switchConfirm)
+		//ALL Synchron: root.null
+		port(SwitchConnector.class, "switchServer").requires(MonitorConnector_4.class, "switchServer");
+		port(MonitorConnector_4.class, "switchServer").requires(SwitchConnector.class, "switchServer");
+
+		port(MonitorConnector_4.class, "receiveSwitchConfirm").requires(SwitchConnector.class, "switchConfirm");
+		port(SwitchConnector.class, "switchConfirm").requires(MonitorConnector_4.class, "receiveSwitchConfirm");
+		
+		port(SwitchConnector.class, "switchServer").accepts(MonitorConnector_4.class, "switchServer");
+		port(MonitorConnector_4.class, "switchServer").accepts(SwitchConnector.class, "switchServer");
+
+		port(MonitorConnector_4.class, "receiveSwitchConfirm").accepts(SwitchConnector.class, "switchConfirm");
+		port(SwitchConnector.class, "switchConfirm").accepts(MonitorConnector_4.class, "receiveSwitchConfirm");
+		
+		port(HerokuControlConnector.class, "addDatabase").requires(MonitorConnector_4.class, "addDatabase");
+		port(MonitorConnector_4.class, "addDatabase").requires(HerokuControlConnector.class, "addDatabase");
+		port(HerokuControlConnector.class, "addDatabase").accepts(MonitorConnector_4.class, "addDatabase");
+		port(MonitorConnector_4.class, "addDatabase").accepts(HerokuControlConnector.class, "addDatabase");
+		
+		// Start of user code Developer policies
+		data(MonitorConnector_4.class,"currentRequest").to(HerokuControlConnector.class, "currentRequest");
+	}
 	
 //	//Monitor_3
 //	@Override
@@ -61,27 +65,27 @@ public class GlueBuilder_Specification extends GlueBuilder
 //		// End of user code
 //	}
 	
-	//Monitor_2
-	@Override
-	public void configure() {
-		//(Monitor.switchConfirm)-(Switch.switchConfirm)
-		//ALL Synchron: root.null
-		port(SwitchConnector.class, "switchServer").requires(MonitorConnector_2.class, "switchServer");
-		port(MonitorConnector_2.class, "switchServer").requires(SwitchConnector.class, "switchServer");
-
-		port(MonitorConnector_2.class, "receiveSwitchConfirm").requires(SwitchConnector.class, "switchConfirm");
-		port(SwitchConnector.class, "switchConfirm").requires(MonitorConnector_2.class, "receiveSwitchConfirm");
-		
-		port(SwitchConnector.class, "switchServer").accepts(MonitorConnector_2.class, "switchServer");
-		port(MonitorConnector_2.class, "switchServer").accepts(SwitchConnector.class, "switchServer");
-
-		port(MonitorConnector_2.class, "receiveSwitchConfirm").accepts(SwitchConnector.class, "switchConfirm");
-		port(SwitchConnector.class, "switchConfirm").accepts(MonitorConnector_2.class, "receiveSwitchConfirm");
-
-		// Start of user code Developer policies
-		// TODO Declare fixed policies
-		// End of user code
-	}
+//	//Monitor_2
+//	@Override
+//	public void configure() {
+//		//(Monitor.switchConfirm)-(Switch.switchConfirm)
+//		//ALL Synchron: root.null
+//		port(SwitchConnector.class, "switchServer").requires(MonitorConnector_2.class, "switchServer");
+//		port(MonitorConnector_2.class, "switchServer").requires(SwitchConnector.class, "switchServer");
+//
+//		port(MonitorConnector_2.class, "receiveSwitchConfirm").requires(SwitchConnector.class, "switchConfirm");
+//		port(SwitchConnector.class, "switchConfirm").requires(MonitorConnector_2.class, "receiveSwitchConfirm");
+//		
+//		port(SwitchConnector.class, "switchServer").accepts(MonitorConnector_2.class, "switchServer");
+//		port(MonitorConnector_2.class, "switchServer").accepts(SwitchConnector.class, "switchServer");
+//
+//		port(MonitorConnector_2.class, "receiveSwitchConfirm").accepts(SwitchConnector.class, "switchConfirm");
+//		port(SwitchConnector.class, "switchConfirm").accepts(MonitorConnector_2.class, "receiveSwitchConfirm");
+//
+//		// Start of user code Developer policies
+//		// TODO Declare fixed policies
+//		// End of user code
+//	}
 		
 //	//Monitor_1
 //	@Override
@@ -100,8 +104,13 @@ public class GlueBuilder_Specification extends GlueBuilder
 //		port(MonitorConnector_1.class, "receiveSwitchConfirm").accepts(SwitchConnector.class, "switchConfirm");
 //		port(SwitchConnector.class, "switchConfirm").accepts(MonitorConnector_1.class, "receiveSwitchConfirm");
 //
+//		port(HerokuControlConnector.class, "addDatabase").requires(MonitorConnector_1.class, "addDatabase");
+//		port(MonitorConnector_1.class, "addDatabase").requires(HerokuControlConnector.class, "addDatabase");
+//		port(HerokuControlConnector.class, "addDatabase").accepts(MonitorConnector_1.class, "addDatabase");
+//		port(MonitorConnector_1.class, "addDatabase").accepts(HerokuControlConnector.class, "addDatabase");
+//		
 //		// Start of user code Developer policies
-//		// TODO Declare fixed policies
+//		data(MonitorConnector_1.class,"currentRequest").to(HerokuControlConnector.class, "currentRequest");
 //		// End of user code
 //	}
 	

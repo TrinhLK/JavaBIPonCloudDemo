@@ -50,20 +50,22 @@ public class MonitorswitchTest extends HttpServlet {
 	MonitorswitchTest bipMoni;
 	// BIP Components
 //	MonitorConnector moni;
-	MonitorConnector_2 moni_2;
+	MonitorConnector_4 moni_4;
 //	MonitorConnector moni;
 //	MonitorConnector moni;
 //	MonitorConnector moni;
 	
 	SwitchConnector sw;
+	HerokuControlConnector controller;
 	// BIP Actors
 //	BIPActor moniActor;
-	BIPActor moniActor_2;
+	BIPActor moniActor_4;
 //	BIPActor moniActor;
 //	BIPActor moniActor;
 //	BIPActor moniActor;
 	
 	BIPActor swActor;
+	BIPActor controllerActor;
 	
 
 //	static String moniRespone = "lalala";
@@ -111,32 +113,34 @@ public class MonitorswitchTest extends HttpServlet {
 ////				// Data
 //
 //				// Sync
-//				// Monitor_2
-//				port(SwitchConnector.class, "switchServer").requires(MonitorConnector_2.class, "switchServer");
-//				port(MonitorConnector_2.class, "switchServer").requires(SwitchConnector.class, "switchServer");
+//				// Monitor_4
+//				port(SwitchConnector.class, "switchServer").requires(MonitorConnector_4.class, "switchServer");
+//				port(MonitorConnector_4.class, "switchServer").requires(SwitchConnector.class, "switchServer");
 //
-//				port(MonitorConnector_2.class, "receiveSwitchConfirm").requires(SwitchConnector.class, "switchConfirm");
-//				port(SwitchConnector.class, "switchConfirm").requires(MonitorConnector_2.class, "receiveSwitchConfirm");
+//				port(MonitorConnector_4.class, "receiveSwitchConfirm").requires(SwitchConnector.class, "switchConfirm");
+//				port(SwitchConnector.class, "switchConfirm").requires(MonitorConnector_4.class, "receiveSwitchConfirm");
 //				
-//				port(SwitchConnector.class, "switchServer").accepts(MonitorConnector_2.class, "switchServer");
-//				port(MonitorConnector_2.class, "switchServer").accepts(SwitchConnector.class, "switchServer");
+//				port(SwitchConnector.class, "switchServer").accepts(MonitorConnector_4.class, "switchServer");
+//				port(MonitorConnector_4.class, "switchServer").accepts(SwitchConnector.class, "switchServer");
 //
-//				port(MonitorConnector_2.class, "receiveSwitchConfirm").accepts(SwitchConnector.class, "switchConfirm");
-//				port(SwitchConnector.class, "switchConfirm").accepts(MonitorConnector_2.class, "receiveSwitchConfirm");
+//				port(MonitorConnector_4.class, "receiveSwitchConfirm").accepts(SwitchConnector.class, "switchConfirm");
+//				port(SwitchConnector.class, "switchConfirm").accepts(MonitorConnector_4.class, "receiveSwitchConfirm");
 //			}
 //		}.build();
 
 		engine = bipMoni.engineFactory.create("myEngine", bipGlue);
 
 //		moni = new MonitorConnector();
-		moni_2 = new MonitorConnector_2();
+		moni_4 = new MonitorConnector_4();
 		
 		sw = new SwitchConnector();
-
+		controller = new HerokuControlConnector();
+		
 //		moniActor = engine.register(moni, "Monitor", true);
-		moniActor_2 = engine.register(moni_2, "Monitor_2", true);
+		moniActor_4 = engine.register(moni_4, "Monitor_4", true);
 		swActor = engine.register(sw, "Switch", true);
-
+		controllerActor = engine.register(controller, "HerokuController", true);
+		
 		engine.start();
 		engine.execute();
 
@@ -183,7 +187,7 @@ public class MonitorswitchTest extends HttpServlet {
 
 				System.out.println("[BIP] Compute Button is pressed");
 //				moniActor.inform("receiveRandomNumberRequest");
-				moniActor_2.inform("receiveRandomNumberRequest");
+				moniActor_4.inform("receiveRandomNumberRequest");
 
 				try {
 					TimeUnit.SECONDS.sleep(5);
@@ -196,7 +200,7 @@ public class MonitorswitchTest extends HttpServlet {
 				Map<String, Object> data = new HashMap<String, Object>();
 				data.put("data", re);
 //				moniActor.inform("sendRandomNumberRequest", data);
-				moniActor_2.inform("sendRandomNumberRequest", data);
+				moniActor_4.inform("sendRandomNumberRequest", data);
 
 				while (re.getHttpResponse() == "") {
 					// System.out.println("The respone is not empty");
@@ -349,7 +353,7 @@ public class MonitorswitchTest extends HttpServlet {
 				BIPMonitorResult.put("randomNumberFromMonitor", randomNumberFromMonitor);
 
 //				moniActor.inform("receiveRandomNumberRequest", BIPMonitorResult);
-				moniActor_2.inform("receiveRandomNumberRequest", BIPMonitorResult);
+				moniActor_4.inform("receiveRandomNumberRequest", BIPMonitorResult);
 
 //				try {
 //					TimeUnit.SECONDS.sleep(5);
@@ -362,7 +366,7 @@ public class MonitorswitchTest extends HttpServlet {
 //				Map<String, Object> data = new HashMap<String, Object>();
 //				data.put("data", re);
 //				moniActor.inform("sendRandomNumberRequest");
-				moniActor_2.inform("sendRandomNumberRequest");
+				moniActor_4.inform("sendRandomNumberRequest");
 
 				while (randomNumberFromMonitor.getHttpResponse() == "") {
 					// System.out.println("The respone is not empty");
@@ -425,7 +429,7 @@ public class MonitorswitchTest extends HttpServlet {
 			if (resetAllButton != null) {
 				System.out.println("[BIP] Reset components button is pressed");
 //				moniActor.inform("resetMonitor");
-				moniActor_2.inform("resetMonitor");
+				moniActor_4.inform("resetMonitor");
 				swActor.inform("resetSwitch");
 			
 //				swActor.
