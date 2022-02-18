@@ -14,6 +14,8 @@
  */
 package occimonitor;
 
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -26,10 +28,7 @@ import org.javabip.api.BIPActor;
 import org.javabip.api.BIPEngine;
 import org.javabip.api.BIPGlue;
 import org.javabip.engine.factory.EngineFactory;
-import org.javabip.glue.GlueBuilder;
 import org.json.JSONObject;
-
-import com.sun.istack.logging.Logger;
 
 import akka.actor.ActorSystem;
 
@@ -41,7 +40,7 @@ public class MonitorswitchTest extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 	//
-	static Logger log = Logger.getLogger(MonitorswitchTest.class);
+//	static Logger log = LoggerFactory.getLogger(MonitorswitchTest.class);
 	String notification = "";
 	ActorSystem system;
 	EngineFactory engineFactory;
@@ -50,7 +49,7 @@ public class MonitorswitchTest extends HttpServlet {
 	MonitorswitchTest bipMoni;
 	// BIP Components
 //	MonitorConnector moni;
-	MonitorConnector_4 moni_4;
+	MonitorConnector_3 moni_3;
 //	MonitorConnector moni;
 //	MonitorConnector moni;
 //	MonitorConnector moni;
@@ -59,7 +58,7 @@ public class MonitorswitchTest extends HttpServlet {
 	HerokuControlConnector controller;
 	// BIP Actors
 //	BIPActor moniActor;
-	BIPActor moniActor_4;
+	BIPActor moniActor_3;
 //	BIPActor moniActor;
 //	BIPActor moniActor;
 //	BIPActor moniActor;
@@ -85,7 +84,7 @@ public class MonitorswitchTest extends HttpServlet {
 
 	public void init() throws ServletException {
 		BasicConfigurator.configure();
-		log.info("This is Logger Info");
+//		log.info("This is Logger Info");
 
 		System.out.println("----------");
 		System.out.println("---------- JavaBIP Initializing ----------");
@@ -113,31 +112,31 @@ public class MonitorswitchTest extends HttpServlet {
 ////				// Data
 //
 //				// Sync
-//				// Monitor_4
-//				port(SwitchConnector.class, "switchServer").requires(MonitorConnector_4.class, "switchServer");
-//				port(MonitorConnector_4.class, "switchServer").requires(SwitchConnector.class, "switchServer");
+//				// Monitor_3
+//				port(SwitchConnector.class, "switchServer").requires(MonitorConnector_3.class, "switchServer");
+//				port(MonitorConnector_3.class, "switchServer").requires(SwitchConnector.class, "switchServer");
 //
-//				port(MonitorConnector_4.class, "receiveSwitchConfirm").requires(SwitchConnector.class, "switchConfirm");
-//				port(SwitchConnector.class, "switchConfirm").requires(MonitorConnector_4.class, "receiveSwitchConfirm");
+//				port(MonitorConnector_3.class, "receiveSwitchConfirm").requires(SwitchConnector.class, "switchConfirm");
+//				port(SwitchConnector.class, "switchConfirm").requires(MonitorConnector_3.class, "receiveSwitchConfirm");
 //				
-//				port(SwitchConnector.class, "switchServer").accepts(MonitorConnector_4.class, "switchServer");
-//				port(MonitorConnector_4.class, "switchServer").accepts(SwitchConnector.class, "switchServer");
+//				port(SwitchConnector.class, "switchServer").accepts(MonitorConnector_3.class, "switchServer");
+//				port(MonitorConnector_3.class, "switchServer").accepts(SwitchConnector.class, "switchServer");
 //
-//				port(MonitorConnector_4.class, "receiveSwitchConfirm").accepts(SwitchConnector.class, "switchConfirm");
-//				port(SwitchConnector.class, "switchConfirm").accepts(MonitorConnector_4.class, "receiveSwitchConfirm");
+//				port(MonitorConnector_3.class, "receiveSwitchConfirm").accepts(SwitchConnector.class, "switchConfirm");
+//				port(SwitchConnector.class, "switchConfirm").accepts(MonitorConnector_3.class, "receiveSwitchConfirm");
 //			}
 //		}.build();
 
 		engine = bipMoni.engineFactory.create("myEngine", bipGlue);
 
 //		moni = new MonitorConnector();
-		moni_4 = new MonitorConnector_4();
+		moni_3 = new MonitorConnector_3();
 		
 		sw = new SwitchConnector();
 		controller = new HerokuControlConnector();
 		
 //		moniActor = engine.register(moni, "Monitor", true);
-		moniActor_4 = engine.register(moni_4, "Monitor_4", true);
+		moniActor_3 = engine.register(moni_3, "Monitor_3", true);
 		swActor = engine.register(sw, "Switch", true);
 		controllerActor = engine.register(controller, "HerokuController", true);
 		
@@ -187,7 +186,7 @@ public class MonitorswitchTest extends HttpServlet {
 
 				System.out.println("[BIP] Compute Button is pressed");
 //				moniActor.inform("receiveRandomNumberRequest");
-				moniActor_4.inform("receiveRandomNumberRequest");
+				moniActor_3.inform("receiveRandomNumberRequest");
 
 				try {
 					TimeUnit.SECONDS.sleep(5);
@@ -200,10 +199,10 @@ public class MonitorswitchTest extends HttpServlet {
 				Map<String, Object> data = new HashMap<String, Object>();
 				data.put("data", re);
 //				moniActor.inform("sendRandomNumberRequest", data);
-				moniActor_4.inform("sendRandomNumberRequest", data);
+				moniActor_3.inform("sendRandomNumberRequest", data);
 
 				while (re.getHttpResponse() == "") {
-					// System.out.println("The respone is not empty");
+					System.out.println("Check whether the response is empty: ");
 					try {
 						TimeUnit.SECONDS.sleep(1);
 					} catch (InterruptedException e) {
@@ -211,10 +210,11 @@ public class MonitorswitchTest extends HttpServlet {
 						e.printStackTrace();
 					}
 					if (re.getHttpResponse() != "") {
+						System.out.println("The response is not empty: " + re.getHttpResponse());
 						break;
 					}
 				}
-
+				
 				content = re.getHttpResponse();
 				System.out.print(content);
 //				//Json
@@ -353,7 +353,7 @@ public class MonitorswitchTest extends HttpServlet {
 				BIPMonitorResult.put("randomNumberFromMonitor", randomNumberFromMonitor);
 
 //				moniActor.inform("receiveRandomNumberRequest", BIPMonitorResult);
-				moniActor_4.inform("receiveRandomNumberRequest", BIPMonitorResult);
+				moniActor_3.inform("receiveRandomNumberRequest", BIPMonitorResult);
 
 //				try {
 //					TimeUnit.SECONDS.sleep(5);
@@ -366,7 +366,7 @@ public class MonitorswitchTest extends HttpServlet {
 //				Map<String, Object> data = new HashMap<String, Object>();
 //				data.put("data", re);
 //				moniActor.inform("sendRandomNumberRequest");
-				moniActor_4.inform("sendRandomNumberRequest");
+//				moniActor_3.inform("sendRandomNumberRequest");
 
 				while (randomNumberFromMonitor.getHttpResponse() == "") {
 					// System.out.println("The respone is not empty");
@@ -429,7 +429,7 @@ public class MonitorswitchTest extends HttpServlet {
 			if (resetAllButton != null) {
 				System.out.println("[BIP] Reset components button is pressed");
 //				moniActor.inform("resetMonitor");
-				moniActor_4.inform("resetMonitor");
+				moniActor_3.inform("resetMonitor");
 				swActor.inform("resetSwitch");
 			
 //				swActor.

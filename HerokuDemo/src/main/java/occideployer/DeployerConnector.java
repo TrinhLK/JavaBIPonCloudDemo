@@ -836,7 +836,11 @@ public class DeployerConnector  {
 		System.out.println("[HerokuDeployer] isAddMorePostgres guard .... HerokuPostgres availability = " + BIPDeployerOCCI.herokuPostgresAvailability.isAvailability());
 //		System.out.println("[HerokuDeployer] Before: check conditions to add Postgres: " + isInAddons("heroku-postgresql", Addons) + " - " + findPlan("heroku-postgresql", Addons).equals("hobby-dev")  + " - " +  BIPDeployerOCCI.herokuPostgresAvailability.isAvailability());
 		String[] postgresql = {"heroku-postgresql", "hobby-dev"};
-		Addons.add(postgresql);
+		if (Addons != null) {
+			Addons.add(postgresql);
+		} else {
+			return false;
+		}
 //		System.out.println("[HerokuDeployer] After: check conditions to add Postgres: " + isInAddons("heroku-postgresql", Addons) + " - " + findPlan("heroku-postgresql", Addons).equals("hobby-dev")  + " - " +  BIPDeployerOCCI.herokuPostgresAvailability.isAvailability());
 		
 		if (isInAddons("heroku-postgresql", Addons) && findPlan("heroku-postgresql", Addons).equals("hobby-dev") && BIPDeployerOCCI.herokuPostgresAvailability.isAvailability()) {

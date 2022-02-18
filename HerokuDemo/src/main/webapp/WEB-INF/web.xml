@@ -26,7 +26,7 @@
 		<!-- servlet-class>test.webapptest</servlet-class -->
 	</servlet>
 
-	<servlet>
+	<!-- <servlet>
 		<servlet-name>Monitor</servlet-name>
 		<servlet-class>monitor.Monitor</servlet-class>
 	</servlet>
@@ -36,14 +36,14 @@
 		<servlet-class>monitor.BIPMonitor</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-	
+	 -->
 	<servlet>
 		<servlet-name>MonitorSwitch</servlet-name>
 		<servlet-class>occimonitor.MonitorswitchTest</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	
-	<servlet>
+	<!-- <servlet>
 		<servlet-name>BIPDeployer</servlet-name>
 		<servlet-class>deployer.BIPDeployer</servlet-class>
 	</servlet>
@@ -51,7 +51,7 @@
 	<servlet>
 		<servlet-name>BIPDeployer1</servlet-name>
 		<servlet-class>deployer1.BIPDeployer1</servlet-class>
-	</servlet>
+	</servlet> -->
 	
 	<servlet>
 		<servlet-name>BIPDeployerOCCI</servlet-name>
@@ -78,22 +78,22 @@
 		<url-pattern>/test</url-pattern>
 	</servlet-mapping>
 
-	<servlet-mapping>
+	<!-- <servlet-mapping>
 		<servlet-name>Monitor</servlet-name>
 		<url-pattern>/monitor</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> -->
 	
-	<servlet-mapping>
+	<!-- <servlet-mapping>
 		<servlet-name>BIPMonitor</servlet-name>
 		<url-pattern>/BIPMonitor</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> -->
 	
 	<servlet-mapping>
 		<servlet-name>MonitorSwitch</servlet-name>
 		<url-pattern>/MonitorSwitch</url-pattern>
 	</servlet-mapping>
 	
-	<servlet-mapping>
+	<!-- <servlet-mapping>
 		<servlet-name>BIPDeployer</servlet-name>
 		<url-pattern>/BIPDeployer</url-pattern>
 	</servlet-mapping>
@@ -101,7 +101,7 @@
 	<servlet-mapping>
 		<servlet-name>BIPDeployer1</servlet-name>
 		<url-pattern>/BIPDeployer1</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> -->
 	
 	<servlet-mapping>
 		<servlet-name>BIPDeployerOCCI</servlet-name>

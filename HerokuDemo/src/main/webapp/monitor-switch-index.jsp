@@ -84,6 +84,7 @@
 	
  	<fieldset>
     	<legend>Server Test</legend>
+    	Request info : <%=request.getRequestURI() %><br/>
     	The current value : <%=request.getAttribute("randomNumber") %><br/>
     	Usage : <%=request.getAttribute("counter") %> / <%=request.getAttribute("limit") %><br/>
     	<input type="submit" name="compute" value="Compute random number !">
