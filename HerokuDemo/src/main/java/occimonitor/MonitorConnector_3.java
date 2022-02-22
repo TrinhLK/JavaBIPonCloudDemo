@@ -604,7 +604,7 @@ public class MonitorConnector_3 extends HttpServlet
 			int counter = jsonObj.getInt("counter");
 		    int limit = jsonObj.getInt("requestLimit");
 		    
-		    if (counter == limit) {
+		    if (counter == limit-1) {
 		    	System.out.println("[Monitor_3-addDB] The condition is satisfied to add new DB addon....");
 		    	return true;
 	    	} else {

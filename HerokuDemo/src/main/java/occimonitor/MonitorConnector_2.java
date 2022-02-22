@@ -533,7 +533,7 @@ public class MonitorConnector_2 extends HttpServlet
 
 	@Transitions({
 		@Transition(name = "sendRandomNumberRequest", source = "RandomNumberRequestReceived", target = "SwitchReady", guard = "!limitIsReached&!canAdd"),
-		@Transition(name = "sendRandomNumberRequest", source = "AddedDBState", target = "SwitchReady"),
+		@Transition(name = "sendRandomNumberRequest", source = "AddedDBState", target = "SwitchReady", guard = "!limitIsReached"),
 	})
 	public void sendRandomNumberRequest() throws IOException {
 		System.out.println("[Monitor_2] Getting a random number....@" + SwitchConnector.currentServer);
@@ -549,7 +549,7 @@ public class MonitorConnector_2 extends HttpServlet
 	
 	@Transitions({
 		@Transition(name = "switchServer", source = "RandomNumberRequestReceived", target = "SwitchReady",  guard = "limitIsReached"),
-		@Transition(name = "switchServer", source = "AddedDBState", target = "SwitchReady",  guard = "limitIsReached"),
+//		@Transition(name = "switchServer", source = "AddedDBState", target = "SwitchReady",  guard = "limitIsReached"),
 	})
 	public void switchServer () throws IOException  {
 		System.out.println("[Monitor_2] switch server (....)");
@@ -631,7 +631,7 @@ public class MonitorConnector_2 extends HttpServlet
 			int limit = jsonObj.getInt("requestLimit");
 			
 //		    System.out.println("[Monitor_2-canAdd] randomNumber = " + randomNumber);
-		    if (counter == limit) {
+		    if (counter == limit-1) {
 		    	System.out.println("[Monitor_2-addDB] The condition is satisfied to add new DB addon....");
 		    	return true;
 	    	} else {

@@ -60,9 +60,14 @@ public class GlueBuilder_Specification extends GlueBuilder
 
 		port(MonitorConnector_3.class, "receiveSwitchConfirm").accepts(SwitchConnector.class, "switchConfirm");
 		port(SwitchConnector.class, "switchConfirm").accepts(MonitorConnector_3.class, "receiveSwitchConfirm");
-		
+
+//		port(MonitorConnector_3.class, "addDatabase").requiresNothing();
+//		port(MonitorConnector_3.class, "addDatabase").acceptsNothing();
+//		port(HerokuControlConnector.class, "addDatabase").requiresNothing();
+//		port(HerokuControlConnector.class, "addDatabase").acceptsNothing();
 		port(HerokuControlConnector.class, "addDatabase").requires(MonitorConnector_3.class, "addDatabase");
 		port(MonitorConnector_3.class, "addDatabase").requires(HerokuControlConnector.class, "addDatabase");
+		
 		port(HerokuControlConnector.class, "addDatabase").accepts(MonitorConnector_3.class, "addDatabase");
 		port(MonitorConnector_3.class, "addDatabase").accepts(HerokuControlConnector.class, "addDatabase");
 		
@@ -87,9 +92,13 @@ public class GlueBuilder_Specification extends GlueBuilder
 //		port(MonitorConnector_2.class, "receiveSwitchConfirm").accepts(SwitchConnector.class, "switchConfirm");
 //		port(SwitchConnector.class, "switchConfirm").accepts(MonitorConnector_2.class, "receiveSwitchConfirm");
 //
+//		port(HerokuControlConnector.class, "addDatabase").requires(MonitorConnector_2.class, "addDatabase");
+//		port(MonitorConnector_2.class, "addDatabase").requires(HerokuControlConnector.class, "addDatabase");
+//		port(HerokuControlConnector.class, "addDatabase").accepts(MonitorConnector_2.class, "addDatabase");
+//		port(MonitorConnector_2.class, "addDatabase").accepts(HerokuControlConnector.class, "addDatabase");
+//		
 //		// Start of user code Developer policies
-//		// TODO Declare fixed policies
-//		// End of user code
+//		data(MonitorConnector_2.class,"currentRequest").to(HerokuControlConnector.class, "currentRequest");
 //	}
 		
 //	//Monitor_1
