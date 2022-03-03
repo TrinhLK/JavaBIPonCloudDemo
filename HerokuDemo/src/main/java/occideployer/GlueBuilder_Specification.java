@@ -70,38 +70,48 @@ public class GlueBuilder_Specification extends GlueBuilder
 				port(HerokuNewRelicAPMConnector.class, "on").accepts(HerokuRegionConnector.class, "setAddonsForEU", HerokuRegionConnector.class, "setAddonsForUS", HerokuPostgresConnector.class, "on", HerokuClearDBMySQLConnector.class, "on", HerokuScoutAPMConnector.class, "on");
 
 		// connector_6:[(HerokuClearDBMySQL.on) - (HerokuPostgres.on) - (HerokuScoutAPM.on) - (HerokuNewRelicAPM.on) - (Deployer.setAddonsForUS)]` - (HerokuRegion.setAddonsForUS)
-		//Synchron & Trigger
-				port(HerokuRegionConnector.class, "setAddonsForUS").requires(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForUS");
-		//ALL Synchron: c00.null
-				port(HerokuClearDBMySQLConnector.class, "on").requires(HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForUS");
-				port(HerokuPostgresConnector.class, "on").requires(HerokuClearDBMySQLConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForUS");
-				port(HerokuScoutAPMConnector.class, "on").requires(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForUS");
-				port(HerokuNewRelicAPMConnector.class, "on").requires(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", DeployerConnector.class, "setAddonsForUS");
-				port(DeployerConnector.class, "setAddonsForUS").requires(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on");
-
-				port(HerokuClearDBMySQLConnector.class, "on").accepts(HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForUS", HerokuRegionConnector.class, "setAddonsForUS");
-				port(HerokuPostgresConnector.class, "on").accepts(HerokuClearDBMySQLConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForUS", HerokuRegionConnector.class, "setAddonsForUS");
-				port(HerokuScoutAPMConnector.class, "on").accepts(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForUS", HerokuRegionConnector.class, "setAddonsForUS");
-				port(HerokuNewRelicAPMConnector.class, "on").accepts(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", DeployerConnector.class, "setAddonsForUS", HerokuRegionConnector.class, "setAddonsForUS");
-				port(DeployerConnector.class, "setAddonsForUS").accepts(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", HerokuRegionConnector.class, "setAddonsForUS");
-				port(HerokuRegionConnector.class, "setAddonsForUS").accepts(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForUS");
+				port(HerokuRegionConnector.class, "setAddonsForUS").requires(DeployerConnector.class, "setAddonsForUS");
+				
+				port(DeployerConnector.class, "setAddonsForUS").accepts(HerokuRegionConnector.class, "setAddonsForUS");
+				port(DeployerConnector.class, "setAddonsForUS").accepts(HerokuRegionConnector.class, "setAddonsForUS");
+				
+//		//Synchron & Trigger
+//				port(HerokuRegionConnector.class, "setAddonsForUS").requires(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForUS");
+//		//ALL Synchron: c00.null
+//				port(HerokuClearDBMySQLConnector.class, "on").requires(HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForUS");
+//				port(HerokuPostgresConnector.class, "on").requires(HerokuClearDBMySQLConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForUS");
+//				port(HerokuScoutAPMConnector.class, "on").requires(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForUS");
+//				port(HerokuNewRelicAPMConnector.class, "on").requires(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", DeployerConnector.class, "setAddonsForUS");
+//				port(DeployerConnector.class, "setAddonsForUS").requires(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on");
+//
+//				port(HerokuClearDBMySQLConnector.class, "on").accepts(HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForUS", HerokuRegionConnector.class, "setAddonsForUS");
+//				port(HerokuPostgresConnector.class, "on").accepts(HerokuClearDBMySQLConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForUS", HerokuRegionConnector.class, "setAddonsForUS");
+//				port(HerokuScoutAPMConnector.class, "on").accepts(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForUS", HerokuRegionConnector.class, "setAddonsForUS");
+//				port(HerokuNewRelicAPMConnector.class, "on").accepts(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", DeployerConnector.class, "setAddonsForUS", HerokuRegionConnector.class, "setAddonsForUS");
+//				port(DeployerConnector.class, "setAddonsForUS").accepts(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", HerokuRegionConnector.class, "setAddonsForUS");
+//				port(HerokuRegionConnector.class, "setAddonsForUS").accepts(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForUS");
 
 		// connector_7:[(HerokuClearDBMySQL.on) - (HerokuPostgres.on) - (HerokuScoutAPM.on) - (HerokuNewRelicAPM.on) - (Deployer.setAddonsForEU)]` - (HerokuRegion.setAddonsForEU)
-		//Synchron & Trigger
-				port(HerokuRegionConnector.class, "setAddonsForEU").requires(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForEU");
-		//ALL Synchron: c00.null
-				port(HerokuClearDBMySQLConnector.class, "on").requires(HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForEU");
-				port(HerokuPostgresConnector.class, "on").requires(HerokuClearDBMySQLConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForEU");
-				port(HerokuScoutAPMConnector.class, "on").requires(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForEU");
-				port(HerokuNewRelicAPMConnector.class, "on").requires(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", DeployerConnector.class, "setAddonsForEU");
-				port(DeployerConnector.class, "setAddonsForEU").requires(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on");
-
-				port(HerokuClearDBMySQLConnector.class, "on").accepts(HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForEU", HerokuRegionConnector.class, "setAddonsForEU");
-				port(HerokuPostgresConnector.class, "on").accepts(HerokuClearDBMySQLConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForEU", HerokuRegionConnector.class, "setAddonsForEU");
-				port(HerokuScoutAPMConnector.class, "on").accepts(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForEU", HerokuRegionConnector.class, "setAddonsForEU");
-				port(HerokuNewRelicAPMConnector.class, "on").accepts(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", DeployerConnector.class, "setAddonsForEU", HerokuRegionConnector.class, "setAddonsForEU");
-				port(DeployerConnector.class, "setAddonsForEU").accepts(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", HerokuRegionConnector.class, "setAddonsForEU");
-				port(HerokuRegionConnector.class, "setAddonsForEU").accepts(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForEU");
+				port(HerokuRegionConnector.class, "setAddonsForEU").requires(DeployerConnector.class, "setAddonsForEU");
+				
+				port(DeployerConnector.class, "setAddonsForEU").accepts(HerokuRegionConnector.class, "setAddonsForEU");
+				port(DeployerConnector.class, "setAddonsForEU").accepts(HerokuRegionConnector.class, "setAddonsForEU");
+				
+//		//Synchron & Trigger
+//				port(HerokuRegionConnector.class, "setAddonsForEU").requires(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForEU");
+//		//ALL Synchron: c00.null
+//				port(HerokuClearDBMySQLConnector.class, "on").requires(HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForEU");
+//				port(HerokuPostgresConnector.class, "on").requires(HerokuClearDBMySQLConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForEU");
+//				port(HerokuScoutAPMConnector.class, "on").requires(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForEU");
+//				port(HerokuNewRelicAPMConnector.class, "on").requires(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", DeployerConnector.class, "setAddonsForEU");
+//				port(DeployerConnector.class, "setAddonsForEU").requires(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on");
+//
+//				port(HerokuClearDBMySQLConnector.class, "on").accepts(HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForEU", HerokuRegionConnector.class, "setAddonsForEU");
+//				port(HerokuPostgresConnector.class, "on").accepts(HerokuClearDBMySQLConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForEU", HerokuRegionConnector.class, "setAddonsForEU");
+//				port(HerokuScoutAPMConnector.class, "on").accepts(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForEU", HerokuRegionConnector.class, "setAddonsForEU");
+//				port(HerokuNewRelicAPMConnector.class, "on").accepts(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", DeployerConnector.class, "setAddonsForEU", HerokuRegionConnector.class, "setAddonsForEU");
+//				port(DeployerConnector.class, "setAddonsForEU").accepts(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", HerokuRegionConnector.class, "setAddonsForEU");
+//				port(HerokuRegionConnector.class, "setAddonsForEU").accepts(HerokuClearDBMySQLConnector.class, "on", HerokuPostgresConnector.class, "on", HerokuScoutAPMConnector.class, "on", HerokuNewRelicAPMConnector.class, "on", DeployerConnector.class, "setAddonsForEU");
 
 		// connector_8:(HerokuRegion.setAddonsForUS)` - (Deployer.setAddonsForUS)
 		//Synchron & Trigger

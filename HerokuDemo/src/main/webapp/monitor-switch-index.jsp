@@ -52,7 +52,7 @@
 	  	</select>
 	  	<input type="submit" name="add" value="Add server"> 
 
-		<br/><br/>	  
+		<br/>  
 
 	  	Added server:
 	  	<select name="addedServer">
@@ -68,11 +68,11 @@
 	  	<input type="submit" name="chooseServer" value="Choose initial server"> 
 	  	<input type="submit" name="remove" value="Remove all servers"><br/>
 	  	
-	  	<br/><br/>	
+	  	<br/>
 	  	
 	  	Current server : <%=request.getAttribute("currentServer") %>
 	  	
-	  	<br/><br/>
+	  	<br/>
 	  	
 	  	<!-- input type="submit" name="switchConfirm" value="Confirm" -->
 	  	
@@ -80,7 +80,7 @@
 	
 	<!-- p>	<input type="submit" name="add" value="Add server"> <input type="submit" name="remove" value="Remove all servers"> </p -->
 	
-	<br/><br/><br/><br/><br/>
+	<br/>
 	
  	<fieldset>
     	<legend>Server Test</legend>
@@ -90,7 +90,7 @@
     	<input type="submit" name="compute" value="Compute random number !">
     	<% if (request.getAttribute("noti") == ""){
     	%>
-    		<input type="submit" name="save" value="Create Postgres-sql">
+    		<input type="submit" name="save" value="Create Database add-on">
     	<%
     	} else {
     	%>

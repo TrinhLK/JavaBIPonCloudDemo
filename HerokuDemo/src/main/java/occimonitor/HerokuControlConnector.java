@@ -59,6 +59,7 @@ public class HerokuControlConnector {
 	})
 	public void addDatabase(@Data(name = "currentRequest") String currentReq) {
 		System.out.println("\n\n[HerokuControl] add Database to server (....)");
+
 		JSONObject jsonObj = new JSONObject(currentReq);
 		String server = jsonObj.optString("server");
 		String baseUrl = server.substring(0, server.lastIndexOf("/")) + "/BIPDeployerOCCI" + "?req=add&addon=heroku-postgresql";
@@ -67,10 +68,12 @@ public class HerokuControlConnector {
 	    URL url;
 		try {
 			url = new URL(baseUrl);
-			System.out.println("[HerokuControl] Check URL: " + baseUrl);
+			System.out.println("[HerokuControl] Check URL 1: " + baseUrl);
+			
 			URLConnection urlconnect = url.openConnection();
 			InputStream stream = urlconnect.getInputStream();
 			hasDatabases = true;
+			System.out.println("\n\n[HerokuControl] FINISHED  (....)");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
