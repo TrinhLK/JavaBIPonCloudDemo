@@ -13,7 +13,7 @@
  *
  * Generated at Sun Jan 16 13:23:15 CET 2022 from platform:/resource/monitorswitch/model/monitorswitch.occie by org.eclipse.cmf.occi.core.gen.connector
  */
-package occimonitor;
+package occimonitor1;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,7 +65,7 @@ import org.javabip.api.DataOut.AccessType;
 , @Port(name = "resetMonitor", type = PortType.spontaneous)
 })
 @ComponentType(initial = "MonitorInit", name = "monitorswitch.connector.Monitor")
-public class MonitorConnector_2 extends HttpServlet
+public class Monitor_2Connector extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 	private final static String USER_AGENT = "Mozilla/5.0";
@@ -77,7 +77,7 @@ public class MonitorConnector_2 extends HttpServlet
 	String currentReq;
 	boolean hasDatabases = false;
 	
-	public MonitorConnector_2() {
+	public Monitor_2Connector() {
 		// TODO Auto-generated constructor stub
 		request = new HttpServletRequest() {
 			

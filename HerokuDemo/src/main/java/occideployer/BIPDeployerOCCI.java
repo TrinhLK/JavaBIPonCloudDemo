@@ -31,7 +31,7 @@ public class BIPDeployerOCCI extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	
 	// Authorization Token is used for API and CLI  
-	public static String authorizationToken = "6ef52c1e-5e21-439d-b702-49637363e578";
+	public static String authorizationToken = "83e7eab9-f4ed-4c55-bab3-349858343727";
 
 	
 	// BIP Engine Declaration
@@ -232,6 +232,17 @@ public class BIPDeployerOCCI extends HttpServlet{
 				printSimpleJSON("Container deleted");
 			//
 			} else if (checkParam(0, "req", "deploy") && checkParam(1, "region", "us") && checkParam(2, "buildpack", "jvm") && checkParam(3, "pushApp", "true")) {
+				// BIPDeployerOCCI?req=deploy&region=us&buildpack=jvm&addon=heroku-postgresql
+				ArrayList<String[]> Addons = new ArrayList<String[]>();
+//				String[] postgresql = {"heroku-postgresql", "hobby-dev"};
+//				Addons.add(postgresql);
+				conf = new Configuration("us","heroku/jvm",Addons);
+				confMap.put("config", conf);
+				deployerActor.inform("chooseConfig", confMap);
+				
+				waitResult();
+			//
+			} else if (checkParam(0, "req", "deploy") && checkParam(1, "region", "us") && checkParam(2, "buildpack", "jvm") && checkParam(3, "pushApp", "false")) {
 				// BIPDeployerOCCI?req=deploy&region=us&buildpack=jvm&addon=heroku-postgresql
 				ArrayList<String[]> Addons = new ArrayList<String[]>();
 //				String[] postgresql = {"heroku-postgresql", "hobby-dev"};

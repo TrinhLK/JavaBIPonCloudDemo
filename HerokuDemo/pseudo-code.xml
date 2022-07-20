@@ -1,0 +1,12 @@
+<!-- 
+<annotations name = "Specification">
+	<annotation id="switchServer_3"> (Monitor_3.switchServer)-(Switch.switchServer) </annotation>
+	<annotation id="switchConfirm_3"> (Monitor_3.receiveSwitchConfirm)-(Switch.switchConfirm) </annotation>
+	<annotation id="addDB_3"> (Monitor_3.addDatabase)-(HerokuController.addDatabase) </annotation>
+	<annotation id="data_3"> data: String currentReq: Monitor_3-HerokuController </annotation>
+	<annotation id="more_than_one_server"> prop: (>= Monitor_3.RNRequestReady 2) </annotation>
+	<annotation id="coordinator"> prop: (& (= HerokuController.Init 1) (= Switch.SwitchReady 1) </annotation>
+	...
+	<annotation id="MAIN"> switchServer_3, switchConfirm_3, addDB_3, data_3, more_than_one_server </annotation>
+</annotations>
+-->

@@ -12,7 +12,7 @@
  *
  * Generated at Sun Jan 16 13:23:15 CET 2022 from platform:/resource/monitorswitch/model/monitorswitch.occie by org.eclipse.cmf.occi.core.gen.connector
  */
-package occimonitor;
+package occimonitor1;
 
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
@@ -31,7 +31,6 @@ import org.javabip.engine.factory.EngineFactory;
 import org.json.JSONObject;
 
 import akka.actor.ActorSystem;
-
 import org.apache.log4j.BasicConfigurator;
 public class MonitorswitchTest extends HttpServlet {
 
@@ -55,7 +54,7 @@ public class MonitorswitchTest extends HttpServlet {
 //	MonitorConnector moni;
 	
 	SwitchConnector sw;
-	HerokuControlConnector controller;
+	HerokuControllerConnector controller;
 	// BIP Actors
 //	BIPActor moniActor;
 	BIPActor moniActor_3;
@@ -93,39 +92,6 @@ public class MonitorswitchTest extends HttpServlet {
 		bipMoni.initialize();
 		
 		bipGlue = new GlueBuilder_Specification().build();
-//		bipGlue = new GlueBuilder() {
-//			@Override
-//			public void configure() {
-////				// Sync
-////				// Monitor
-////				port(SwitchConnector.class, "switchServer").requires(MonitorConnector.class, "switchServer");
-////				port(MonitorConnector.class, "switchServer").requires(SwitchConnector.class, "switchServer");
-////
-////				port(MonitorConnector.class, "receiveSwitchConfirm").requires(SwitchConnector.class, "switchConfirm");
-////				port(SwitchConnector.class, "switchConfirm").requires(MonitorConnector.class, "receiveSwitchConfirm");
-////				
-////				port(SwitchConnector.class, "switchServer").accepts(MonitorConnector.class, "switchServer");
-////				port(MonitorConnector.class, "switchServer").accepts(SwitchConnector.class, "switchServer");
-////
-////				port(MonitorConnector.class, "receiveSwitchConfirm").accepts(SwitchConnector.class, "switchConfirm");
-////				port(SwitchConnector.class, "switchConfirm").accepts(MonitorConnector.class, "receiveSwitchConfirm");
-////				// Data
-//
-//				// Sync
-//				// Monitor_3
-//				port(SwitchConnector.class, "switchServer").requires(MonitorConnector_3.class, "switchServer");
-//				port(MonitorConnector_3.class, "switchServer").requires(SwitchConnector.class, "switchServer");
-//
-//				port(MonitorConnector_3.class, "receiveSwitchConfirm").requires(SwitchConnector.class, "switchConfirm");
-//				port(SwitchConnector.class, "switchConfirm").requires(MonitorConnector_3.class, "receiveSwitchConfirm");
-//				
-//				port(SwitchConnector.class, "switchServer").accepts(MonitorConnector_3.class, "switchServer");
-//				port(MonitorConnector_3.class, "switchServer").accepts(SwitchConnector.class, "switchServer");
-//
-//				port(MonitorConnector_3.class, "receiveSwitchConfirm").accepts(SwitchConnector.class, "switchConfirm");
-//				port(SwitchConnector.class, "switchConfirm").accepts(MonitorConnector_3.class, "receiveSwitchConfirm");
-//			}
-//		}.build();
 
 		engine = bipMoni.engineFactory.create("myEngine", bipGlue);
 
@@ -133,7 +99,7 @@ public class MonitorswitchTest extends HttpServlet {
 		moni_3 = new Monitor_3Connector();
 		
 		sw = new SwitchConnector();
-		controller = new HerokuControlConnector();
+		controller = new HerokuControllerConnector();
 		
 //		moniActor = engine.register(moni, "Monitor", true);
 		moniActor_3 = engine.register(moni_3, "Monitor_3", true);
@@ -437,7 +403,7 @@ public class MonitorswitchTest extends HttpServlet {
 			}
 			//////////////////////////////////////////////////////////////////////////
 
-			RequestDispatcher rd = request.getRequestDispatcher("/monitor-switch-index.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/monitor-switch-index1.jsp");
 			rd.include(request, response);
 		}
 

@@ -15,8 +15,8 @@
  */
 package occimonitor;
 
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.*;
@@ -64,8 +64,8 @@ import org.javabip.api.DataOut.AccessType;
 , @Port(name = "switchServer", type = PortType.enforceable)
 , @Port(name = "resetMonitor", type = PortType.spontaneous)
 })
-@ComponentType(initial = "MonitorInit", name = "monitorswitch.connector.Monitor_3")
-public class MonitorConnector_3 extends HttpServlet
+@ComponentType(initial = "MonitorInit", name = "monitorswitch.connector.Monitor")
+public class Monitor_4Connector extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 	private final static String USER_AGENT = "Mozilla/5.0";
@@ -77,7 +77,7 @@ public class MonitorConnector_3 extends HttpServlet
 	String currentReq;
 	boolean hasDatabases = false;
 	
-	public MonitorConnector_3() {
+	public Monitor_4Connector() {
 		// TODO Auto-generated constructor stub
 		request = new HttpServletRequest() {
 			
@@ -484,7 +484,7 @@ public class MonitorConnector_3 extends HttpServlet
 		@Transition(name = "receiveSwitchConfirm", source = "MonitorInit", target = "SwitchReady"),
 	})
 	public void waitSwitchConfirm() {
-		System.out.println("[Monitor_3] Recieved switch confirm....");
+		System.out.println("[Monitor_4] Recieved switch confirm....");
 	}
 	
 	@Transitions({
@@ -492,10 +492,10 @@ public class MonitorConnector_3 extends HttpServlet
 	})
 	public void receiveRandomNumberRequest(@Data(name = "randomNumberFromMonitor") MonitorResult randomNumberFromMonitor){
 		this.randomNumberFromMonitor = randomNumberFromMonitor;
-		System.out.println("[Monitor_3] Received a random number request.... " + randomNumberFromMonitor.getHttpResponse());
+		System.out.println("[Monitor_4] Received a random number request.... " + randomNumberFromMonitor.getHttpResponse());
 		try {
 			currentReq = requestJson(SwitchConnector.currentServer);
-			System.out.println("[Monitor_3] Received info: " + currentReq);
+			System.out.println("[Monitor_4] Received request: " + currentReq);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -504,7 +504,7 @@ public class MonitorConnector_3 extends HttpServlet
 	
 	// Send request //
 	public String requestJson (String currentServer) throws IOException {
-		System.out.println("[Monitor_3] Getting Json contain....");
+		System.out.println("[Monitor_4] Getting Json contain....");
 		URL obj = new URL(currentServer);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		// optional default is GET
@@ -533,14 +533,13 @@ public class MonitorConnector_3 extends HttpServlet
 
 	@Transitions({
 		@Transition(name = "sendRandomNumberRequest", source = "RandomNumberRequestReceived", target = "SwitchReady", guard = "!limitIsReached"),
-//		@Transition(name = "sendRandomNumberRequest", source = "AddedDBState", target = "SwitchReady", guard = "!limitIsReached"),
 	})
 	public void sendRandomNumberRequest() throws IOException {
-		System.out.println("[Monitor_3] Getting a random number....@" + SwitchConnector.currentServer);
+		System.out.println("[Monitor_4] Getting a random number....@" + SwitchConnector.currentServer);
 		// TODO Auto-generated method stub
 //		String re = requestJson(SwitchConnector.currentServer);
-		System.out.println("[Monitor_3] sendRAN - Check current server: " + SwitchConnector.currentServer);
-		System.out.println("[Monitor_3] sendRAN - Check current Req: " + currentReq);
+		System.out.println("[Monitor_4] sendRAN - Check current server: " + SwitchConnector.currentServer);
+		System.out.println("[Monitor_4] sendRAN - Check current Req: " + currentReq);
 		randomNumberFromMonitor.setHttpResponse(currentReq);
 	}
 
@@ -551,18 +550,20 @@ public class MonitorConnector_3 extends HttpServlet
 		@Transition(name = "switchServer", source = "RandomNumberRequestReceived", target = "SwitchReady",  guard = "limitIsReached"),
 	})
 	public void switchServer () throws IOException  {
-		System.out.println("[Monitor_3] switch server (....): RandomNumberRequestReceived --> SwitchReady");
-//		request.setAttribute("counter", 0);
+		System.out.println("[Monitor_4] switch server (....)");
+		request.setAttribute("counter", 0);
 		randomNumberFromMonitor.setHttpResponse(currentReq);
 	}
 
+	
+	
 
 	// Request limit info	
 	@Guard(name = "limitIsReached")
 	public boolean limitIsReached () throws IOException {
-		System.out.println("[Monitor_3] Checking if the limit is reached....");
+		System.out.println("[Monitor_4] Checking if the limit is reached....");
 //		String content = requestLimitInfo(SwitchConnector.currentServer);
-//		System.out.println("[Monitor_3-limitIsReach] content: " + content);
+//		System.out.println("[Monitor_4-limitIsReach] content: " + content);
 		//Json
 		JSONObject jsonObj = new JSONObject(currentReq);
 		
@@ -570,60 +571,62 @@ public class MonitorConnector_3 extends HttpServlet
 	    int limit = jsonObj.getInt("requestLimit");
 	    System.out.println("[Monitor-limitIsReach] values: " + counter + "/" + limit);
 	    if (counter == limit ) {
-	    	System.out.println("[Monitor_3] The limit has been reached....");
+	    	System.out.println("[Monitor_4] The limit has been reached....");
 	    	return true;
     	} else {
-    		System.out.println("[Monitor_3] The limit has not been reached.... " + currentReq);
+    		System.out.println("[Monitor_4] The limit has not been reached....");
     		return false;
 		}
 	    
 	}
 
 	@Transitions({
-		@Transition(name = "addDatabase", source = "SwitchReady", target = "SwitchReady",  guard = "canAdd"),
+		@Transition(name = "addDatabase", source = "MonitorInit", target = "MonitorInit",  guard = "canAdd"),
 	})
 	public void addDatabase () throws Exception {
 		
-		System.out.println("[Monitor_3] add Database to server (....)");
+		System.out.println("[Monitor_4] add Database to server (....)");
 		hasDatabases = true;
+	    
 	}
 //	
 	@Guard(name = "canAdd")
 	public boolean canAdd() throws IOException {
-		System.out.println("[Monitor_3] Checking if it is possible to add DB....");
+		System.out.println("[Monitor_4] Checking if it is possible to add DB....");
 //		String content = requestJson(SwitchConnector.currentServer);
-		if (hasDatabases || currentReq == null) {
-			System.out.println("[Monitor_3] NOT satisfied to add DB\n");
+		if (hasDatabases) {
 			return false;
 		}
 		System.out.println("[Monitor-canAdd] content: " + currentReq);
 		//Json
 		JSONObject jsonObj = new JSONObject(currentReq);
-		System.out.println("[Monitor_3-canAdd] check before calling randomNumber");
+		System.out.println("[Monitor_4-canAdd] check before calling randomNumber");
 		try {
+			int randomNumber = jsonObj.getInt("randomNumber");
 			int counter = jsonObj.getInt("counter");
-		    int limit = jsonObj.getInt("requestLimit");
-		    
-		    if (counter == limit-1) {
-		    	System.out.println("[Monitor_3-addDB] The condition is satisfied to add new DB addon....");
+			
+		    System.out.println("[Monitor_4-canAdd] randomNumber = " + randomNumber);
+		    if (counter > 0) {
+		    	System.out.println("[Monitor_4-addDB] The condition is satisfied to add new DB addon....");
 		    	return true;
 	    	} else {
-	    		System.out.println("[Monitor_3-addDB] The condition is NOT satisfied to add new DB addon....");
+	    		System.out.println("[Monitor_4-addDB] The condition is NOT satisfied to add new DB addon....");
 	    		return false;
 			}
 		}catch(Exception e) {
-			System.out.println("[Monitor_3-canAdd] cannot call randomNumber");
+			System.out.println("[Monitor_4-canAdd] cannot call randomNumber");
 			return false;
 		}
+	    
 
 	}
 	
 	public String requestLimitInfo (String currentServer) throws IOException {
-		System.out.println("[Monitor_3] Getting limit info....");
+		System.out.println("[Monitor_4] Getting limit info....");
 		String requestLimitInfoURL = currentServer.concat("?req=checkLimit");
-		System.out.println("[Monitor_3] URL (" + requestLimitInfoURL + ") \n \n");
+		System.out.println("[Monitor_4] URL (" + requestLimitInfoURL + ") \n \n");
 		String content = requestJson(requestLimitInfoURL);
-		System.out.println("[Monitor_3] limit info (" + content + ") \n \n");
+		System.out.println("[Monitor_4] limit info (" + content + ") \n \n");
 		return content.toString();
 	}
 	
@@ -631,11 +634,12 @@ public class MonitorConnector_3 extends HttpServlet
 		@Transition(name = "resetMonitor", source = "SwitchReady", target = "MonitorInit"),
 	})
 	public void resetMonitor () {
-		System.out.println("[Monitor_3] Reset the Monitor (SwitchReady --> MonitorInit)");
+		System.out.println("[Monitor_4] Reset the Monitor (SwitchReady --> MonitorInit)");
 	}
 	
 	@Data(name = "currentRequest", accessTypePort = AccessType.any)
 	public String getCurrentRequest() {
 		return currentReq;
 	}
+	
 }	
