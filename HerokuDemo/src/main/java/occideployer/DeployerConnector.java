@@ -40,15 +40,11 @@ import org.javabip.api.DataOut.AccessType;
 @Ports({
 	@Port(name = "chooseConfig", type = PortType.spontaneous),
 	@Port(name = "toAppReady", type = PortType.spontaneous),
-	//
 	@Port(name = "setFreeDyno", type = PortType.enforceable),
-	//
 	@Port(name = "setUSRegion", type = PortType.enforceable),
 	@Port(name = "setEURegion", type = PortType.enforceable),
-	//
 	@Port(name = "setAddonsForUS", type = PortType.enforceable), 
 	@Port(name = "setAddonsForEU", type = PortType.enforceable), 
-	//
 	@Port(name = "setJava", type = PortType.enforceable),
 	@Port(name = "setScala", type = PortType.enforceable),
 	@Port(name = "setPython", type = PortType.enforceable),
@@ -59,7 +55,6 @@ import org.javabip.api.DataOut.AccessType;
 	@Port(name = "setJvm", type = PortType.enforceable),
 	@Port(name = "setPhp", type = PortType.enforceable),
 	@Port(name = "setGo", type = PortType.enforceable),
-	//
 	@Port(name = "setAddonsForJava", type = PortType.enforceable),
 	@Port(name = "setAddonsForScala", type = PortType.enforceable),
 	@Port(name = "setAddonsForPython", type = PortType.enforceable),
@@ -70,7 +65,6 @@ import org.javabip.api.DataOut.AccessType;
 	@Port(name = "setAddonsForJvm", type = PortType.enforceable),
 	@Port(name = "setAddonsForPhp", type = PortType.enforceable),
 	@Port(name = "setAddonsForGo", type = PortType.enforceable),
-	//
 	@Port(name = "addMorePostgres", type = PortType.enforceable),
 	@Port(name = "clickAddMorePostgres", type = PortType.spontaneous),
 	@Port(name = "addHerokuPostgres1", type = PortType.enforceable),
@@ -79,17 +73,14 @@ import org.javabip.api.DataOut.AccessType;
 	@Port(name = "addScoutAPM1", type = PortType.enforceable),
 	@Port(name = "addNewRelicAPM1", type = PortType.enforceable),
 	@Port(name = "receiveAddonResponse", type = PortType.enforceable),
-	//
 	@Port(name = "addonAddingError", type = PortType.enforceable),
 	@Port(name = "dynoCreatingError", type = PortType.enforceable),
 	@Port(name = "receiveDynoResponse", type = PortType.enforceable),
 	@Port(name = "deleteContainer", type = PortType.enforceable),
 	@Port(name = "deleteContainerSpontaneous", type = PortType.spontaneous),
-	//
 	@Port(name = "pushAppToContainer", type = PortType.enforceable),
 	@Port(name = "finish", type = PortType.enforceable),
 	@Port(name = "appPushingError", type = PortType.enforceable),
-	//
 	@Port(name = "resetAll", type = PortType.enforceable),
 	@Port(name = "javaBIPdetach", type = PortType.spontaneous),
 })
@@ -754,7 +745,7 @@ public class DeployerConnector  {
 			System.out.println("[HerokuDeployer-push] pushAppToContainer triggered .... (AddonAdded --> AppPushed) appName: " + conf.getAppName());
 			System.out.println();
 			System.out.println("[HerokuDeployer] conf.pushAppSkip: " + conf.pushAppSkip);
-
+			conf.getDeployStatus().add("[HerokuDeployer] conf.pushAppSkip: " + conf.pushAppSkip);
 			if (!conf.pushAppSkip) {
 				
 				String pushResponse = HerokuCli.warDeploy(HerokuCli.warPath, conf.getAppName());
@@ -857,8 +848,8 @@ public class DeployerConnector  {
 		public void appPushingError() {	
 			System.out.println("[HerokuDeployer] appPushingError triggered .... (AppPushed --> Error)");
 			System.out.println();
-			
 			conf.getDeployStatus().add("Error (App pushing error) - Content: " + pushResponse);
+
 			// Reset var pushResponse
 			pushResponse = null;
 	}
